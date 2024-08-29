@@ -1,10 +1,13 @@
-$font-stack: "Lexend", Arial, Helvetica, sans-serif;
-$primary-color: #1d1d1d;
-$secondary-color: #333;
+$primary-color: rgb(29, 29, 29);
+$primary-alpha-color: rgba(29, 29, 29, 0.75);
+$secondary-color: rgb(51, 51, 51);
+$secondary-alpha-color: rgba(51, 51, 51, 0.75);
 $white-color: #fff;
 $font-weight-light: 300;
 $font-weight-medium: 500;
 $font-weight-bold: 600;
+$font-stack: "Lexend", Arial, Helvetica, sans-serif;
+$font-Montagu-Slab: "Montagu Slab", serif;
 
 @mixin font-styles($weight, $size) {
   font-weight: $weight;
@@ -29,13 +32,13 @@ $font-weight-bold: 600;
 
 body {
   width: 100%;
+  color: $primary-color;
+  margin: 0;
   font: {
     size: 15px;
     weight: $font-weight-light;
     family: $font-stack;
   }
-  color: $primary-color;
-  margin: 0;
 }
 
 img {
@@ -61,13 +64,22 @@ img {
 
 .banner {
   @extend %width;
+  @include flexbox-styles(center, center);
   padding: 60px 0;
   text-align: center;
   background: {
     image: url("../img/Adidas-banner.jpg");
     repeat: no-repeat;
     size: cover;
-    position-y: 40%;
+    position: center;
+  }
+
+  &__container {
+    max-width: 80%;
+    background-color: $primary-alpha-color;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 5px rgba(225, 225, 225, 0.3);
   }
 
   &__title {
@@ -75,6 +87,7 @@ img {
     @include font-styles(600, 30px);
     margin: 10px;
     color: $white-color;
+    font-family: $font-Montagu-Slab;
   }
 
   &__subtitle {
@@ -96,6 +109,25 @@ img {
   article {
     cursor: pointer;
     text-align: center;
+    @include flexbox-styles(center, center);
+  }
+  
+  &__container {
+    width: 200px;
+    height: 330px;
+    margin: 1rem 0;
+    background-color: $secondary-color;
+    color: $white-color;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    &:hover {
+      @media (hover: hover) {
+        transform: scale(1.05);
+        transition: transform 0.5s;
+        background-color: $secondary-alpha-color;
+      }
+    }
   }
 
   &__image {
@@ -122,7 +154,7 @@ img {
   box-sizing: border-box;
   height: 100%;
   position: fixed;
-  right: 0px;
+  right: 0;
   top: 100px;
   box-shadow: -19px -1px 22px -15px rgba(0, 0, 0, 0.30);
 
