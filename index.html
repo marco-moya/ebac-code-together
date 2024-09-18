@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montagu+Slab:opsz,wght@16..144,100..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/main.js" defer></script>
   <title>Tienda adidas</title>
 </head>
 <body>
@@ -17,7 +18,14 @@
     <img src="./img/logo-adidas.png" alt="Logo Adidas" class="header__logo">
     <i class="header__icon">
       <img src="./img/shopping-cart-fill.svg" alt="Icono Carrito" class="header__icon-cart" >
+      <p class="badge"></p>
     </i>
+    <nav class="nav" id="nav">
+      <h2>MENU</h2>
+      <i class="nav__icon">
+        <img src="./img/close.png" alt="icono de cierre" class="nav__icon-close">
+      </i>
+    </nav>
   </header>
 
   <main>
@@ -29,99 +37,37 @@
     </section>
 
     <section class="products">
-      <article>
-        <div class="products__container">
-          <img src="./img/Jersey_Local_Seleccion_Nacional.jpg" alt="Jersey de la selección mexicana con estampado color guinda" class="products__image">
-          <h3 class="products__name">Jersey México 2023</h3>
-          <p class="products__price">$1,000.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Chamarra_Deportiva_Ajustada_AERO.jpg" alt="Chamarra Adidas color negra con flanjas laterales blancas" class="products__image">
-          <h3 class="products__name">Chamarra Adidas Special</h3>
-          <p class="products__price">$2,000.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Zapatillas_LG2_SPZL_Blanco_IF835.jpg" alt="Zapatilla deportiva Adidas LG2 color blanco con franjas verdes" class="products__image">
-          <h3 class="products__name">Adidas LG2</h3>
-          <p class="products__price">$2,300.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Jersey_Local_Seleccion_Nacional.jpg" alt="Jersey de la selección mexicana con estampado color guinda" class="products__image">
-          <h3 class="products__name">Jersey México 2023</h3>
-          <p class="products__price">$1,000.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Chamarra_Deportiva_Ajustada_AERO.jpg" alt="Chamarra Adidas color negra con flanjas laterales blancas" class="products__image">
-          <h3 class="products__name">Chamarra Adidas Special</h3>
-          <p class="products__price">$2,000.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Zapatillas_LG2_SPZL_Blanco_IF835.jpg" alt="Zapatilla deportiva Adidas LG2 color blanco con franjas verdes" class="products__image">
-          <h3 class="products__name">Adidas LG2</h3>
-          <p class="products__price">$2,300.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Jersey_Local_Seleccion_Nacional.jpg" alt="Jersey de la selección mexicana con estampado color guinda" class="products__image">
-          <h3 class="products__name">Jersey México 2023</h3>
-          <p class="products__price">$1,000.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Chamarra_Deportiva_Ajustada_AERO.jpg" alt="Chamarra Adidas color negra con flanjas laterales blancas" class="products__image">
-          <h3 class="products__name">Chamarra Adidas Special</h3>
-          <p class="products__price">$2,000.00</p>
-        </div>
-      </article>
-
-      <article>
-        <div class="products__container">
-          <img src="./img/Zapatillas_LG2_SPZL_Blanco_IF835.jpg" alt="Zapatilla deportiva Adidas LG2 color blanco con franjas verdes" class="products__image">
-          <h3 class="products__name">Adidas LG2</h3>
-          <p class="products__price">$2,300.00</p>
-        </div>
-      </article>
+      <template id="products-template">
+        <article>
+          <div class="products__container">
+            <img class="products__image">
+            <h3 class="products__name"></h3>
+            <p class="products__price"></p>
+            <button class="products__button">
+              <img src="./img/add.png" alt="icono de cierre" class="products__icon-add">
+            </button>
+          </div>
+        </article>
+      </template>
     </section>
     
     <section class="cart">
       <h2 class="cart__title">CARRITO</h2>
-      <div class="cart__product">
-        <img src="./img/Jersey_Local_Seleccion_Nacional.jpg" alt="Jersey de la selección mexicana con estampado color guinda" class="cart__product-image" >
-        <p>Jersey México 2023</p>
-        <p class="cart__product-price">$1,000.00</p>
-        <i class="cart__icon"><img src="./img/delete.svg" alt="Icono Quitar" class="cart__icon-delete"></i>
-      </div>
-      <div class="cart__product">
-        <img src="./img/Jersey_Local_Seleccion_Nacional.jpg" alt="Jersey de la selección mexicana con estampado color guinda" class="cart__product-image" >
-        <p>Jersey México 2023</p>
-        <p class="cart__product-price">$1,000.00</p>
-        <i class="cart__icon"><img src="./img/delete.svg" alt="Icono Quitar" class="cart__icon-delete"></i>
-      </div>
-      <div class="cart__product">
-        <img src="./img/Jersey_Local_Seleccion_Nacional.jpg" alt="Jersey de la selección mexicana con estampado color guinda" class="cart__product-image" >
-        <p>Jersey México 2023</p>
-        <p class="cart__product-price">$1,000.00</p>
-        <i class="cart__icon"><img src="./img/delete.svg" alt="Icono Quitar" class="cart__icon-delete"></i>
-      </div>
+      <i class="cart__icon">
+        <img src="./img/close.png" alt="icono de cierre" class="cart__icon-close">
+      </i>
+      <article class="cart__items">
+        <template id="cart__template">
+          <div class="cart__product">
+            <img class="cart__product-image" >
+            <p></p>
+            <p class="cart__product-price"></p>
+            <i class="cart__icon">
+              <img src="./img/delete.svg" alt="Icono Quitar" class="cart__icon-delete">
+            </i>
+          </div>
+        </template>
+      </article>
     </section>
   </main>
 </body>

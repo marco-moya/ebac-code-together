@@ -54,11 +54,47 @@ img {
     width: 35px;
     cursor: pointer;
     display: inline-block;
-
+    position: relative;
+    
     &-menu,
     &-cart {
       @extend %width;
     }
+  }
+  & .badge {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: -5px;
+    bottom: 10px;
+    border-radius: 50%;
+    background-color: #ff0000;
+    text-align: center;
+    font-weight: 600;
+    font-style: normal;
+    color: #fff;
+    display: none;
+  }
+  & .nav {
+    width: 300px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -500px;
+    text-align: center;
+    background-color: #fff;
+    transition: left 300ms ease-in-out;
+    &__show {
+      left: 0;
+    }
+  }
+  & .nav__icon-close {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
   }
 }
 
@@ -107,15 +143,16 @@ img {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   article {
-    cursor: pointer;
     text-align: center;
     @include flexbox-styles(center, center);
   }
   
   &__container {
     width: 200px;
-    height: 330px;
+    height: 350px;
     margin: 1rem 0;
+    @include flexbox-styles(space-between, center);
+    flex-direction: column;
     background-color: $secondary-color;
     color: $white-color;
     border-radius: 10px;
@@ -132,31 +169,63 @@ img {
 
   &__image {
     width: 200px;
+    height: 200px;
     margin-bottom: 15px;
   }
 
   &__name {
+    width: 90%;
     font-weight: $font-weight-medium;
     font-size: 17px;
-    margin-bottom: 5px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__price {
     font-weight: $font-weight-light;
     font-size: 15px;
   }
+
+  &__icon-add {
+    width: 30px;
+  }
+
+  &__button {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    @include flexbox-styles(center, center);
+  }
 }
 
 .cart {
   width: 500px;
+  height: 100%;
+  overflow-y: auto;
   background-color: $white-color;
   padding: 25px;
   box-sizing: border-box;
-  height: 100%;
   position: fixed;
-  right: 0;
-  top: 100px;
+  right: -500px;
+  top: 0;
   box-shadow: -19px -1px 22px -15px rgba(0, 0, 0, 0.30);
+  transition: right 300ms ease-in-out;
+  
+  &__show{
+    right: 0; 
+  }
+
+  &__icon-close {
+    width: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 
   &__title {
     @extend %width;
@@ -169,11 +238,12 @@ img {
 
   &__product {
     border-bottom: 1px solid $secondary-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 15px;
     box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto 3fr 1fr auto;
+    align-items: center;
+    gap: 1rem;
 
     &-image {
       width: 60px;
@@ -217,7 +287,6 @@ img {
 
   .cart {
     width: 400px;
-    top: 80px;
   }
 }
 
