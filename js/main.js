@@ -23,7 +23,16 @@ const arrProducts = [
   new Product("Balón de Básquet de Caucho X 3 Franjas", 399, "./img/Balon_de_Basquet_de_Caucho_X_3_F.jpg"),
   new Product("Gorro Pescador Adicolor Trifolio", 649, "./img/Gorro_Pescador_Adicolor_Trifolio.jpg"),
   new Product("Guante Aditech 24 Single", 399, "./img/Guante_Aditech_24_Single_Blanco.jpg"),
-
+  new Product("Mallas Acampanadas", 1099, "./img/Mallas_Acampanadas_Beige_IY7197.jpg"),
+  new Product("Sandalias adilette Aqua", 799, "./img/Sandalias_adilette_Aqua_Blanco_E.jpg"),
+  new Product("Mallas Optime 4 Pulgadas Dobladillo Sin Rematar", 899, "./img/Mallas_Optime_4_Pulgadas_Dobladi.jpg"),
+  new Product("Falda tejida", 1399, "./img/Falda_tejida_Rojo_IY7280_01_layd.jpg"),
+  new Product("Sudadera Corta Trifolio", 1299, "./img/Sudadera_Corta_Trifolio_Negro_IU.jpg"),
+  new Product("Chamarra Bomber SST Oversized", 2799, "./img/Chamarra_Bomber_SST_Oversized_Ve.jpg"),
+  new Product("Tenis adidas Grand Court Platforma", 1699, "./img/Tenis_adidas_Grand_Court_Platfor.jpg"),
+  new Product("Playera 3 Franjas Baby", 649, "./img/Playera_3_Franjas_Baby_Verde_IY4.jpg"),
+  new Product("Tenis Bravada 2.0 Mid Platform", 1499, "./img/Tenis_Bravada_2.0_Mid_Platform_R.jpg"),
+  new Product("Vestido de Tenis Pro AEROREADY Premium Manga Larga", 4399, "./img/Vestido_de_Tenis_Pro_AEROREADY_P.jpg"),
 ];
 
 const $nav = document.getElementById("nav"),
@@ -34,7 +43,52 @@ const $nav = document.getElementById("nav"),
   $cart = document.querySelector(".cart"),
   $cartItems = document.querySelector(".cart__items"),
   $templateCart = document.getElementById("cart__template").content,
-  arrCart = [];
+  $scrollBtn = document.querySelector(".scroll-top-btn");
+let arrCart = [],
+  storageCart = undefined;
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof Storage !== "undefined") {
+    storageCart = JSON.parse(localStorage.getItem("cartProducts"));
+    if (storageCart) {
+      arrCart = storageCart;
+      updateCart();
+    }
+  } else {
+    console.log("Local Storage no disponible");
+  }
+
+  document.addEventListener("click", (e) => {
+    if (e.target.matches(".header__icon-menu")){
+      $nav.classList.add("nav__show");
+    }
+  
+    if (e.target.matches(".nav__icon-close")){
+      $nav.classList.remove("nav__show");
+    }
+  
+    if (e.target.matches(".header__icon-cart") || e.target.matches(".badge")) {
+      $cart.classList.add("cart__show");
+    }
+  
+    if(e.target.matches(".cart__icon-close")) {
+      $cart.classList.remove("cart__show");
+    }
+  
+    if (e.target.matches(".scroll-top-btn")) {
+      window.scrollTo({behavior: "smooth", top: 0})
+    }
+  })
+  
+  window.addEventListener("scroll", (e) => {
+    let scrollTop = document.documentElement.scrollTop;
+    if (scrollTop > 700) {
+      $scrollBtn.classList.remove("hidden");
+    } else {
+      $scrollBtn.classList.add("hidden");
+    }
+  })
+});
 
 // Crear cada una de las cards de forma dinamica. 
 arrProducts.forEach((product) => {
@@ -72,8 +126,10 @@ function removeFromCart(index) {
 
 // Función para actualizar el carrito en el DOM
 function updateCart() {
+  // Guardar el carrito en localStorage
+  localStorage.setItem("cartProducts", JSON.stringify(arrCart));
   $cartItems.innerHTML = ''; // Limpiar el contenido anterior.
-  
+
   arrCart.forEach((item, index) => {
     $templateCart.querySelector("img").setAttribute("src", item.image);
     $templateCart.querySelector("img").setAttribute("alt", item.name);
@@ -105,22 +161,3 @@ function addBadge() {
     $badge.style.setProperty("display", "none");
   }
 }
-
-
-document.addEventListener("click", (e) => {
-  if (e.target.matches(".header__icon-menu")){
-    $nav.classList.add("nav__show");
-  }
-
-  if (e.target.matches(".nav__icon-close")){
-    $nav.classList.remove("nav__show");
-  }
-
-  if (e.target.matches(".header__icon-cart") || e.target.matches(".badge")) {
-    $cart.classList.add("cart__show");
-  }
-
-  if(e.target.matches(".cart__icon-close")) {
-    $cart.classList.remove("cart__show");
-  }
-})
