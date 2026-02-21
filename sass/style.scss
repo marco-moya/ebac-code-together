@@ -8,6 +8,44 @@ $font-weight-medium: 500;
 $font-weight-bold: 600;
 $font-stack: "Lexend", Arial, Helvetica, sans-serif;
 $font-Montagu-Slab: "Montagu Slab", serif;
+$transition-fast: 200ms ease-in-out;
+$transition-medium: 300ms ease-in-out;
+$transition-slow: 500ms ease-in-out;
+
+// Animaciones
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px) rotate(-5deg); }
+  75% { transform: translateX(3px) rotate(5deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @mixin font-styles($weight, $size) {
   font-weight: $weight;
@@ -55,10 +93,34 @@ img {
     cursor: pointer;
     display: inline-block;
     position: relative;
+    transition: transform $transition-fast;
+    
+    &:hover {
+      @media (hover: hover) {
+        transform: scale(1.15);
+      }
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
     
     &-menu,
     &-cart {
       @extend %width;
+      transition: transform $transition-fast;
+    }
+    
+    &-menu:hover {
+      @media (hover: hover) {
+        animation: shake 0.4s ease-in-out;
+      }
+    }
+    
+    &-cart:hover {
+      @media (hover: hover) {
+        animation: bounce 0.4s ease-in-out;
+      }
     }
   }
   & .badge {
@@ -74,6 +136,15 @@ img {
     font-style: normal;
     color: $white-color;
     display: none;
+    animation: pulse 1.5s infinite;
+    transition: transform $transition-fast, background-color $transition-fast;
+    
+    &:hover {
+      @media (hover: hover) {
+        background-color: #cc0000;
+        transform: scale(1.2);
+      }
+    }
   }
   & .nav {
     width: 300px;
@@ -84,6 +155,7 @@ img {
     text-align: center;
     background-color: $white-color;
     transition: left 300ms ease-in-out;
+    z-index: 20;
     &__show {
       left: 0;
     }
@@ -95,6 +167,18 @@ img {
     top: 20px;
     right: 20px;
     cursor: pointer;
+    transition: transform $transition-fast, opacity $transition-fast;
+    
+    &:hover {
+      @media (hover: hover) {
+        transform: rotate(90deg) scale(1.1);
+        opacity: 0.8;
+      }
+    }
+    
+    &:active {
+      transform: rotate(90deg) scale(0.9);
+    }
   }
 }
 
@@ -158,11 +242,14 @@ img {
     border-radius: 10px;
     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    transition: transform $transition-medium, background-color $transition-medium, box-shadow $transition-medium;
+    animation: fadeInUp 0.5s ease-out;
+    
     &:hover {
       @media (hover: hover) {
-        transform: scale(1.05);
-        transition: transform 0.5s;
+        transform: scale(1.05) translateY(-5px);
         background-color: $secondary-alpha-color;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       }
     }
   }
@@ -196,10 +283,45 @@ img {
     width: 40px;
     height: 40px;
     margin-bottom: 1rem;
-    background-color: transparent;
+    background-color: $white-color;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
     @include flexbox-styles(center, center);
+    transition: transform $transition-fast, background-color $transition-fast, box-shadow $transition-fast;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background-color: rgba(51, 51, 51, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width $transition-medium, height $transition-medium;
+    }
+    
+    &:hover {
+      @media (hover: hover) {
+        transform: scale(1.15) rotate(90deg);
+        background-color: #f0f0f0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        
+        &::before {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    
+    &:active {
+      transform: scale(0.95);
+      background-color: #e0e0e0;
+    }
   }
 }
 
@@ -257,9 +379,32 @@ img {
   &__icon {
     width: 25px;
     cursor: pointer;
+    transition: transform $transition-fast;
 
     &-delete {
       @extend %width;
+      transition: transform $transition-fast, filter $transition-fast;
+      
+      &:hover {
+        @media (hover: hover) {
+          transform: scale(1.2) rotate(10deg);
+          filter: brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(5);
+        }
+      }
+      
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+    
+    &-close {
+      transition: transform $transition-fast;
+      
+      &:hover {
+        @media (hover: hover) {
+          transform: rotate(90deg) scale(1.1);
+        }
+      }
     }
   }
 }
@@ -276,20 +421,40 @@ img {
   color: $white-color;
   background-color: $secondary-color;
   border-radius: 50%;
-  border: none;
+  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 300ms ease-in-out;
+  transition: all $transition-medium;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  
   &:hover {
-    @media (hover: hover){
+    @media (hover: hover) {
       color: $secondary-color;
       background-color: $white-color;
+      border-color: $secondary-color;
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      animation: bounce 0.6s ease-in-out;
     }
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
 }
 
 .hidden {
   visibility: hidden;
   opacity: 0;
+  transform: translateY(20px);
+  transition: all $transition-medium;
+}
+
+// Clase para mostrar elementos con animación
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {
